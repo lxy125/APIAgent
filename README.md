@@ -38,19 +38,39 @@ pip install -r requirements.txt
 
 # 或使用 poetry
 poetry install
+
+# 或使用 pip 安装（推荐）
+pip install -e .
 ```
 
 ## 快速开始
 
+### Web 界面（推荐）
+
+```bash
+# 安装依赖
+pip install -e .
+
+# 启动 Web 应用
+streamlit run web_app.py
+```
+
+浏览器将自动打开 `http://localhost:8501`，你可以在界面中：
+
+- 📥 以 JSON 或表单方式输入 API 数据
+- 🔍 一键启动智能诊断
+- 📊 查看完整的诊断报告（语义分析、根因、修复策略、测试用例）
+- 💡 导出 JSON 格式的诊断报告
+
+### 命令行使用
+
 ```python
 import asyncio
-from langchain_openai import ChatOpenAI
 from src import APIDiagnosisSystem
 
 async def main():
     # 初始化系统
-    llm = ChatOpenAI(model="gpt-4", api_key="your-api-key")
-    system = APIDiagnosisSystem(llm=llm)
+    system = APIDiagnosisSystem()
 
     # 输入数据
     input_data = {
@@ -74,6 +94,12 @@ async def main():
     print(f"Test Cases: {len(report.test_suite.test_cases)}")
 
 asyncio.run(main())
+```
+
+### 交互式 CLI
+
+```bash
+python interactive_cli.py
 ```
 
 ## 扩展功能
